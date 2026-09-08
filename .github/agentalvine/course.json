@@ -1,0 +1,150 @@
+{
+  "id": "03-subnet-security",
+  "title": "Laboratory 03 · Independent subnet security",
+  "number": 3,
+  "topics": [
+    "D1.4"
+  ],
+  "duration": "60–90 minutes",
+  "description": "No network-module copy required. This root is the security module; supplied synthetic subnet IDs replace any earlier lab dependency.",
+  "nextRepository": "alvinea28/ws2-terraform-tests-docs-laboratory-04",
+  "completion": "The standalone security module passes its learner-root mocks and safe-ingress rejection checks. It creates no shared infrastructure and these checks do not deploy Azure resources. Every laboratory is independent; the catalogue order is a learning recommendation, not a requirement to create or finish another repository.",
+  "steps": [
+    {
+      "id": "1",
+      "title": "Create the NSG from caller inputs",
+      "lesson": ".github/steps/01.md",
+      "requiresCommit": true,
+      "checks": [
+        {
+          "kind": "file",
+          "path": "main.tf",
+          "contains": [
+            "resource \"azurerm_network_security_group\" \"this\"",
+            "var.name",
+            "var.resource_group_name",
+            "var.location",
+            "var.tags"
+          ],
+          "notContains": [
+            "resource \"azurerm_resource_group\"",
+            "resource \"azurerm_virtual_network\"",
+            "provider \"azurerm\""
+          ]
+        },
+        {
+          "kind": "file",
+          "path": "outputs.tf",
+          "contains": [
+            "output \"nsg_id\"",
+            "azurerm_network_security_group.this.id"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Map rules and associate supplied subnets",
+      "lesson": ".github/steps/02.md",
+      "requiresCommit": true,
+      "checks": [
+        {
+          "kind": "file",
+          "path": "main.tf",
+          "contains": [
+            "resource \"azurerm_network_security_rule\" \"this\"",
+            "resource \"azurerm_subnet_network_security_group_association\" \"this\"",
+            "each.value.source_address_prefix",
+            "each.value.destination_address_prefix",
+            "azurerm_network_security_group.this.id"
+          ],
+          "pattern": "for_each\\s*=\\s*var\\.rules\\b",
+          "notContains": [
+            "TODO",
+            "data \"azurerm_subnet\""
+          ]
+        },
+        {
+          "kind": "file",
+          "path": "main.tf",
+          "pattern": "for_each\\s*=\\s*var\\.subnet_ids\\b"
+        },
+        {
+          "kind": "file",
+          "path": "outputs.tf",
+          "contains": [
+            "output \"association_ids\"",
+            "azurerm_subnet_network_security_group_association.this",
+            "association.id"
+          ],
+          "notContains": [
+            "TODO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Compose the child with synthetic inputs",
+      "lesson": ".github/steps/03.md",
+      "requiresCommit": true,
+      "checks": [
+        {
+          "kind": "file",
+          "path": "examples/basic/main.tf",
+          "contains": [
+            "module \"security\"",
+            "subnet_ids",
+            "00000000-0000-0000-0000-000000000000",
+            "/subnets/web",
+            "/subnets/data",
+            "cost_center",
+            "rules"
+          ],
+          "pattern": "source\\s*=\\s*\"\\.\\./\\.\\.\"",
+          "notContains": [
+            "TODO",
+            "REPLACE_ME",
+            "resource \"azurerm_resource_group\"",
+            "data \"azurerm_subnet\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Reject broad ingress with root-only mocks",
+      "lesson": ".github/steps/04.md",
+      "requiresCommit": true,
+      "checks": [
+        {
+          "kind": "file",
+          "path": "tests/security.tftest.hcl",
+          "contains": [
+            "mock_provider \"azurerm\"",
+            "run \"valid_two_subnet_associations\"",
+            "run \"reject_wildcard_ingress\"",
+            "output.association_ids"
+          ],
+          "pattern": "expect_failures\\s*=\\s*\\[\\s*var\\.rules\\s*\\]",
+          "notContains": [
+            "TODO"
+          ]
+        },
+        {
+          "kind": "workflow",
+          "file": "lab-checks.yml",
+          "jobs": [
+            "Test learner module"
+          ],
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "beginnerSetup": true,
+  "sourceRepository": "alvinea28/ws2-subnet-security-laboratory-03",
+  "sourceBranch": "dev",
+  "independent": true,
+  "prerequisiteLabs": []
+}
