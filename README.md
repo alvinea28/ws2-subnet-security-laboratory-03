@@ -1,6 +1,6 @@
 # Laboratory 03 · Independent subnet security
 
-**Repository:** [alvinea28/ws2-subnet-security-laboratory-03](https://github.com/alvinea28/ws2-subnet-security-laboratory-03) · **Recommended order:** 03 of 08 · **Time:** 60–90 minutes
+**Public source template (not the clone URL after copying):** [alvinea28/ws2-subnet-security-laboratory-03](https://github.com/alvinea28/ws2-subnet-security-laboratory-03) · **Recommended order:** 03 of 08 · **Time:** 60–90 minutes
 
 > [!NOTE]
 > **This laboratory is independent.** No network-module copy required. This root is the security module; supplied synthetic subnet IDs replace any earlier lab dependency.
