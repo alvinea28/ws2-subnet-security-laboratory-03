@@ -1,0 +1,22 @@
+{
+  "capturedOn": "2026-09-14",
+  "exercisePreview": {
+    "kind": "Actual anonymous GitHub Exercise Preview viewport; zero participant progress",
+    "private": false,
+    "url": "https://github.com/alvinea28/ws2-subnet-security-laboratory-03/issues/1",
+    "previewRun": "https://github.com/alvinea28/ws2-subnet-security-laboratory-03/actions/runs/34879097268",
+    "capturedAt": "2026-09-14T19:07:18.244Z",
+    "sha256": "58a15e78681e142b535ad5cb00f6cb30c4699b603918c7e9103c2b093a6ba97a"
+  },
+  "localValidation": {
+    "kind": "New local output-viewer capture of actual fresh commands; not terminal UI or a participant cycle",
+    "private": false,
+    "codeBaseRevision": "cfa4e54aea94487301eaa550ac04018297304b76",
+    "controlledFilesSha256": "628750ea379d911230b709dfe2e49e1e9199df596b68d61eb412ff8d49635d59",
+    "nodePasses": 35,
+    "solvedLabPassed": true,
+    "capturedAt": "2026-09-14T19:07:18.613Z",
+    "sha256": "1eb387cfeb3799d3750454796ddad34d0a91ae95409ffaf0e5965fbee22175e8"
+  },
+  "historicalSimulation": "Original private A/B records remain in the private evidence repository; no original-day per-step screenshots exist."
+}
